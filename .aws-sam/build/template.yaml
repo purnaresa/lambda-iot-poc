@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'lambda-iot-poc
+
+  Sample SAM Template for lambda-iot-poc
+
+  '
+Globals:
+  Function:
+    Timeout: 5
+Resources:
+  GetTemperatureFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: GetTemperatureFunction
+      Handler: get-temperature
+      Runtime: go1.x
+      Tracing: Active
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /temperature
+            Method: GET
+      Environment:
+        Variables:
+          PARAM1: VALUE
+  PostTemperatureFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: PostTemperatureFunction
+      Handler: post-temperature
+      Runtime: go1.x
+      Tracing: Active
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /temperature
+            Method: POST
+      Environment:
+        Variables:
+          PARAM1: VALUE
+Outputs:
+  GetTemperatureAPI:
+    Description: API Gateway endpoint URL for Lab environment for First Function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/temperature/
+  GetTemperatureFunction:
+    Description: First Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetTemperatureFunction
+      - Arn
+  GetTemperatureFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - GetTemperatureFunctionRole
+      - Arn
+  PostTemperatureAPI:
+    Description: API Gateway endpoint URL for Lab environment for First Function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/temperature/
+  PostTemperatureFunction:
+    Description: First Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - PostTemperatureFunction
+      - Arn
+  PostTemperatureFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - PostTemperatureFunctionRole
+      - Arn

@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "lambda-iot-poc"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-u5ehjl6y7cpy"
+s3_prefix = "lambda-iot-poc"
+region = "ap-southeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
